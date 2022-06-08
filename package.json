@@ -1,0 +1,18 @@
+{
+  "name": "torrent-downloader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "torrent-downloader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "googleapis": "^100.0.0",
+    "mime-types": "^2.1.35",
+    "tree-kill": "^1.2.2"
+  }
+}
