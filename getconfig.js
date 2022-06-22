@@ -18,7 +18,7 @@ const main = async () => {
     let client_id = "202264815644.apps.googleusercontent.com";
     let client_secret =
       "eX8GpZTVx3vxMWVkuuBdDWmAUE6rGhTwVrvG9GhllYccSdj2-mvHVg";
-    let redirect_uri = "http://localhost:53682";
+    let redirect_uri = "http://127.0.0.1:53682";
 
     if (
       config.get(section, "client_id") &&
