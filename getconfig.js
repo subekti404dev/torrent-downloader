@@ -7,7 +7,7 @@ const config = new ConfigParser();
 const main = async () => {
   try {
     const url = process.argv[2];
-    const index = process.argv[3];
+    const index = process.argv[3] || 0;
     const resp = await axios.get(url);
     const tmpName = ".tmp.conf";
     fs.writeFileSync(tmpName, resp.data);
