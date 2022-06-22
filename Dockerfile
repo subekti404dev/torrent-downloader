@@ -4,5 +4,5 @@ RUN apk add transmission-cli
 RUN mkdir /data
 
 WORKDIR /app
-COPY package.json download.js drive.js upload.js ./
+COPY package.json download.js drive.js upload.js getconfig.js ./
 RUN npm install --production
