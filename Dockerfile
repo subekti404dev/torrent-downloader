@@ -1,6 +1,10 @@
-FROM node:16.3.0-alpine as builder
+FROM node:14.19 as builder
 
-RUN apk add transmission-cli
+COPY mqtt-cli.deb ./
+RUN apt update &&\
+    apt install -y transmission-cli ./mqtt-cli.deb &&\
+    rm ./mqtt-cli.deb
+
 RUN mkdir /data
 
 WORKDIR /app
