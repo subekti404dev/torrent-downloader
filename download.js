@@ -47,7 +47,7 @@ const exeAsync = async (cmd, opts) => {
           console.log("FINISH", { pid: p.pid });
           setTimeout(() => {
             kill(p.pid);
-          }, 1000 * 10);
+          }, 1000 * 15);
         }
       }
     });
