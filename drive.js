@@ -63,6 +63,7 @@ const createDir = async (drive, name, parentFolderId = null) => {
         const response = await drive.files.create(option);
         return response.data;
     } catch (error) {
+        console.log('ERR: ',error?.errors)
         throw error;
     }
 }
