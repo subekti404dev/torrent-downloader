@@ -1,20 +1,25 @@
 require("dotenv").config();
 const { getDrive, createDir, uploadFile } = require("./drive");
 const fs = require("fs");
+const delay = require("delay");
 
 const walk = async (dir, driveDirId) => {
   const drive = getDrive();
   const list = fs.readdirSync(dir);
+  await delay(1000);
+
   for (const file of list) {
     const filepath = dir + "/" + file;
     const stat = fs.statSync(filepath);
     if (stat && stat.isDirectory()) {
       console.log("Create Dir: ", filepath);
       const newDir = await createDir(drive, file, driveDirId);
+      await delay(1000);
       walk(filepath, newDir.id);
     } else {
       console.log("Upload File: ", filepath);
       await uploadFile(drive, filepath, file, driveDirId);
+      await delay(1000);
     }
   }
 };
