@@ -8,6 +8,21 @@ const sendMqtt = (url, tmp) => {
   );
 };
 
+const superEncodeURI = (url) => {    
+  let encodedStr = '', encodeChars = ["(", ")"];
+	url = encodeURI(url);
+  for(let i = 0, len = url.length; i < len; i++) {
+		if (encodeChars.indexOf(url[i]) >= 0) {
+    	let hex = parseInt(url.charCodeAt(i)).toString(16);
+    	encodedStr += '%' + hex;
+    }
+    else {
+    	encodedStr += url[i];
+    }
+  }
+  return encodedStr;
+}
+
 const downloadRawTorrentFile = async (url) => {
   return new Promise((resolve, reject) => {
     exec(`wget -O file.torrent "${url}"`, (err, stdout, stderr) => {
@@ -70,7 +85,7 @@ const main = async () => {
   try {
     const url = process.argv[2];
     const opts = process.argv[3];
-    await downloadRawTorrentFile(url);
+    await downloadRawTorrentFile(superEncodeURI(url));
     let cmd = `transmission-cli file.torrent -w /data`;
     console.log(`execute: `, cmd);
     await exeAsync(cmd, opts);
