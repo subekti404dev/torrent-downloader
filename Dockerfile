@@ -8,5 +8,5 @@ RUN apt update &&\
 RUN mkdir /data
 
 WORKDIR /app
-COPY package.json download.js drive.js upload.js getconfig.js ./
+COPY package.json main.js src ./
 RUN npm install --production
