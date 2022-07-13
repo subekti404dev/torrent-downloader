@@ -74,6 +74,7 @@ const main = async () => {
     let cmd = `transmission-cli file.torrent -w /data`;
     console.log(`execute: `, cmd);
     await exeAsync(cmd, opts);
+    sendMqtt(url, `Progress: 100%, DL Speed: 0`);
   } catch (error) {
     console.log(error?.response?.data || error?.message);
   }
