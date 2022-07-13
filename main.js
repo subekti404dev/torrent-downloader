@@ -1,3 +1,4 @@
+require("dotenv").config();
 const downloadFunc = require('./src/download')
 const getConfigFunc = require('./src/getconfig')
 const uploadFunc = require('./src/upload')
