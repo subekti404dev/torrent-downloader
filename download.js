@@ -85,8 +85,8 @@ const main = async () => {
   try {
     const url = process.argv[2];
     const opts = process.argv[3];
-    await downloadRawTorrentFile(superEncodeURI(url));
-    let cmd = `transmission-cli file.torrent -w /data`;
+//     await downloadRawTorrentFile(superEncodeURI(url));
+    let cmd = `transmission-cli ${url} -w /data`;
     console.log(`execute: `, cmd);
     await exeAsync(cmd, opts);
     sendMqtt(url, `Progress: 100%, DL Speed: 0`);
