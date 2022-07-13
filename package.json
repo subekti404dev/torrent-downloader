@@ -16,6 +16,7 @@
     "dotenv": "^16.0.1",
     "googleapis": "^100.0.0",
     "mime-types": "^2.1.35",
+    "pkg": "^5.8.0",
     "tree-kill": "^1.2.2"
   }
 }

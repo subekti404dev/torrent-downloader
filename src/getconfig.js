@@ -4,10 +4,10 @@ const fs = require("fs");
 
 const config = new ConfigParser();
 
-const main = async () => {
+const main = async (url, index) => {
   try {
-    const url = process.argv[2];
-    const index = process.argv[3] || 0;
+    // const url = process.argv[2];
+    // const index = process.argv[3] || 0;
     const resp = await axios.get(url);
     const tmpName = ".tmp.conf";
     fs.writeFileSync(tmpName, resp.data);
@@ -49,4 +49,5 @@ const main = async () => {
   }
 };
 
-main();
+// main();
+module.exports = main;

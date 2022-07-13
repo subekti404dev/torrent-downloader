@@ -24,15 +24,16 @@ const walk = async (dir, driveDirId) => {
   }
 };
 
-const main = async () => {
+const main = async (driveParentId = process.env.GA_TMP_DRIVE_PARENT_ID) => {
   try {
     const filepath = "/data";
     console.log({ filepath });
-    const driveParentId = process.argv[2] || process.env.GA_TMP_DRIVE_PARENT_ID;
+    // const driveParentId = process.argv[2] || process.env.GA_TMP_DRIVE_PARENT_ID;
     await walk(filepath, driveParentId);
   } catch (error) {
     console.log(error?.response?.data || error?.message);
   }
 };
 
-main();
+// main();
+module.exports = main;

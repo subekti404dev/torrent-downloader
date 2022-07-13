@@ -8,33 +8,6 @@ const sendMqtt = (url, tmp) => {
   );
 };
 
-const superEncodeURI = (url) => {    
-  let encodedStr = '', encodeChars = ["(", ")"];
-	url = encodeURI(url);
-  for(let i = 0, len = url.length; i < len; i++) {
-		if (encodeChars.indexOf(url[i]) >= 0) {
-    	let hex = parseInt(url.charCodeAt(i)).toString(16);
-    	encodedStr += '%' + hex;
-    }
-    else {
-    	encodedStr += url[i];
-    }
-  }
-  return encodedStr;
-}
-
-const downloadRawTorrentFile = async (url) => {
-  return new Promise((resolve, reject) => {
-    exec(`wget -O file.torrent "${url}"`, (err, stdout, stderr) => {
-      if (err) {
-        reject(stderr);
-      } else {
-        resolve(stdout);
-      }
-    });
-  });
-};
-
 const exeAsync = async (cmd, opts) => {
   const url = cmd.split(" ")[1];
   return new Promise((resolve, reject) => {
@@ -81,11 +54,10 @@ const exeAsync = async (cmd, opts) => {
   });
 };
 
-const main = async () => {
+const main = async (url, opts) => {
   try {
-    const url = process.argv[2];
-    const opts = process.argv[3];
-//     await downloadRawTorrentFile(superEncodeURI(url));
+    // const url = process.argv[2];
+    // const opts = process.argv[3];
     let cmd = `transmission-cli ${url} -w /data`;
     console.log(`execute: `, cmd);
     await exeAsync(cmd, opts);
@@ -95,4 +67,5 @@ const main = async () => {
   }
 };
 
-main();
+// main();
+module.exports = main;
