@@ -8,6 +8,18 @@ const sendMqtt = (url, tmp) => {
   );
 };
 
+const downloadRawTorrentFile = async (url) => {
+  return new Promise((resolve, reject) => {
+    exec(`wget -O file.torrent "${url}"`, (err, stdout, stderr) => {
+      if (err) {
+        reject(stderr);
+      } else {
+        resolve(stdout);
+      }
+    });
+  });
+};
+
 const exeAsync = async (cmd, opts) => {
   const url = cmd.split(" ")[1];
   return new Promise((resolve, reject) => {
@@ -58,7 +70,8 @@ const main = async () => {
   try {
     const url = process.argv[2];
     const opts = process.argv[3];
-    let cmd = `transmission-cli ${url} -w /data`;
+    await downloadRawTorrentFile(url);
+    let cmd = `transmission-cli file.torrent -w /data`;
     console.log(`execute: `, cmd);
     await exeAsync(cmd, opts);
   } catch (error) {
