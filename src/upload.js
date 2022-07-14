@@ -6,9 +6,9 @@ const delay = require("delay");
 const walk = async (dir, driveDirId) => {
   const drive = getDrive();
   const list = fs.readdirSync(dir);
-  await delay(1000);
-
+  
   for (const file of list) {
+    await delay(1500);
     const filepath = dir + "/" + file;
     const stat = fs.statSync(filepath);
     if (stat && stat.isDirectory()) {
