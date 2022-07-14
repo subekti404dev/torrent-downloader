@@ -2,9 +2,9 @@ require("dotenv").config();
 const { getDrive, createDir, uploadFile } = require("./drive");
 const fs = require("fs");
 const delay = require("delay");
+const drive = getDrive();
 
 const walk = async (dir, driveDirId) => {
-  const drive = getDrive();
   const list = fs.readdirSync(dir);
   await delay(1000);
 
