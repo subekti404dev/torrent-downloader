@@ -4,7 +4,7 @@ const kill = require("tree-kill");
 const sendMqtt = (url, tmp) => {
   const msg = `${url}|||${tmp}`;
   exec(
-    `mqtt pub -t urip_torrent_downloader -m "${msg}" -h broker.emqx.io -p 8083 -ws`
+    `mosquitto_pub -h broker.emqx.io -t 'urip_torrent_downloader' -m '${msg}'`
   );
 };
 

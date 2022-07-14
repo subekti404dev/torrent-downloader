@@ -1,13 +1,19 @@
-FROM node:14.19 as builder
-
-COPY mqtt-cli.deb ./
-RUN apt update &&\
-    apt install -y transmission-cli ./mqtt-cli.deb &&\
-    rm ./mqtt-cli.deb
-
-RUN mkdir /data
+FROM node:16.3.0-alpine as builder
 
 WORKDIR /app
 COPY package.json main.js ./
 COPY src /app/src
-RUN npm install --production
+
+RUN npm install --production && npm run build
+
+FROM alpine
+RUN apk add --no-cache transmission-cli mosquitto-clients
+
+RUN mkdir /data
+
+WORKDIR /app
+# COPY main.js package.json ./
+# COPY src /app/src
+# COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/main /usr/bin/torrent
+CMD [ "mosquitto -c /etc/mosquitto/mosquitto.conf" ]

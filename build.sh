@@ -1,1 +1,1 @@
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t subekti13/torrent-downloader:latest --push .
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t subekti13/torrent-downloader-v2:latest --push .
