@@ -3,7 +3,7 @@ const { getDrive, createDir, uploadFile } = require("./drive");
 const fs = require("fs");
 const delay = require("delay");
 const drive = getDrive();
-const delayTime = 1000 * 2;
+const delayTime = 1000 * 5;
 
 const walk = async (dir, driveDirId) => {
   const list = fs.readdirSync(dir);
