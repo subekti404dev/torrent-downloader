@@ -6,8 +6,6 @@ const config = new ConfigParser();
 
 const main = async (url, index = 0) => {
   try {
-    // const url = process.argv[2];
-    // const index = process.argv[3] || 0;
     if (typeof index === "string") {
       try {
         index = parseInt(index);
@@ -54,5 +52,4 @@ const main = async (url, index = 0) => {
   }
 };
 
-// main();
 module.exports = main;

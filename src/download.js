@@ -56,8 +56,6 @@ const exeAsync = async (cmd, opts) => {
 
 const main = async (url, opts) => {
   try {
-    // const url = process.argv[2];
-    // const opts = process.argv[3];
     let cmd = `transmission-cli ${url} -w /data`;
     console.log(`execute: `, cmd);
     await exeAsync(cmd, opts);
@@ -67,5 +65,4 @@ const main = async (url, opts) => {
   }
 };
 
-// main();
 module.exports = main;
