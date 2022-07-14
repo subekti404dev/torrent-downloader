@@ -9,6 +9,6 @@ RUN npm install --production && npm run build
 FROM alpine
 
 WORKDIR /app
-RUN apk add --no-cache transmission-cli mosquitto-clients openssh && mkdir /data
+RUN apk add --no-cache transmission-cli mosquitto-clients openssh tree && mkdir /data
 COPY --from=builder /app/main /usr/bin/torrent
 CMD [ "mosquitto -c /etc/mosquitto/mosquitto.conf" ]
