@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "Uploading ..."
+sshpass -p "$2"  rsync --progress -auvr -e ssh /data/* "$1"
