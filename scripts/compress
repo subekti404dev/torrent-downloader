@@ -1,0 +1,11 @@
+#!/bin/sh
+TORRENT_DIR=$(ls -td /data/*/ | head -1)
+
+cd $TORRENT_DIR
+
+DIR_NAME=${PWD##*/}
+
+zip -rm $DIR_NAME.zip ./*
+mv $DIR_NAME.zip ../
+
+rm -rf $TORRENT_DIR
