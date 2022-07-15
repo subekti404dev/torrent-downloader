@@ -9,7 +9,8 @@ RUN npm install --production && npm run build
 FROM alpine
 
 WORKDIR /app
-RUN apk add --no-cache transmission-cli mosquitto-clients openssh tree sshpass &&\
+RUN apk add --no-cache transmission-cli mosquitto-clients \
+    openssh tree sshpass rsync &&\
     mkdir /data && mkdir -p /root/.ssh &&\
     ssh-keygen -b 2048 -t rsa -f /tmp/sshkey -q -N "" &&\
     ssh-keyscan -H captain-nemo.xyz >> ~/.ssh/known_hosts
