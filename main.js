@@ -11,7 +11,7 @@ const main = async () => {
         await getConfigFunc(args[0], args[1])
     }
     if (action === 'download') {
-        await downloadFunc(args[0], args[1])
+        await downloadFunc(args[0])
     }
     if (action === 'upload') {
         await uploadFunc(args[0])

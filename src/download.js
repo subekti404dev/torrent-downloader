@@ -8,7 +8,7 @@ const sendMqtt = (url, tmp) => {
   );
 };
 
-const exeAsync = async (cmd, opts) => {
+const exeAsync = async (cmd) => {
   const url = cmd.split(" ")[1];
   return new Promise((resolve, reject) => {
     const p = exec(cmd, (err, stdout, stderr) => {
@@ -34,16 +34,12 @@ const exeAsync = async (cmd, opts) => {
 
         if (tmp !== lastProcess) {
           console.log(tmp);
-          if (opts && opts.includes("mqtt")) {
-            sendMqtt(url, tmp);
-          }
+          sendMqtt(url, tmp);
         }
         lastProcess = tmp;
 
         if (progress === "100.0%" || data.includes("Seeding")) {
-          if (opts && opts.includes("mqtt")) {
-            sendMqtt(url, `Progress: 100%, DL Speed: 0`);
-          }
+          sendMqtt(url, `Progress: 100%, DL Speed: 0`);
           console.log("FINISH", { pid: p.pid });
           setTimeout(() => {
             kill(p.pid);
@@ -54,14 +50,12 @@ const exeAsync = async (cmd, opts) => {
   });
 };
 
-const main = async (url, opts) => {
+const main = async (url) => {
   try {
     let cmd = `transmission-cli ${url} -w /data`;
     console.log(`execute: `, cmd);
-    await exeAsync(cmd, opts);
-    if (opts && opts.includes("mqtt")) {
-      sendMqtt(url, `Progress: 100%, DL Speed: 0`);
-    }
+    await exeAsync(cmd);
+    sendMqtt(url, `Progress: 100%, DL Speed: 0`);
   } catch (error) {
     console.log(error?.response?.data || error?.message);
   }
