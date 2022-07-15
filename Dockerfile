@@ -11,4 +11,7 @@ FROM alpine
 WORKDIR /app
 RUN apk add --no-cache transmission-cli mosquitto-clients openssh tree sshpass && mkdir /data
 COPY --from=builder /app/main /usr/bin/torrent
+RUN ssh-keygen -b 2048 -t rsa -f /tmp/sshkey -q -N "" &&\
+    mkdir -p /root/.ssh && ssh-keyscan -H captain-nemo.xyz >> ~/.ssh/known_hosts
+
 CMD [ "mosquitto -c /etc/mosquitto/mosquitto.conf" ]
