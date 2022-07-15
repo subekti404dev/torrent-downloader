@@ -59,7 +59,9 @@ const main = async (url, opts) => {
     let cmd = `transmission-cli ${url} -w /data`;
     console.log(`execute: `, cmd);
     await exeAsync(cmd, opts);
-    sendMqtt(url, `Progress: 100%, DL Speed: 0`);
+    if (opts && opts.includes("mqtt")) {
+      sendMqtt(url, `Progress: 100%, DL Speed: 0`);
+    }
   } catch (error) {
     console.log(error?.response?.data || error?.message);
   }
