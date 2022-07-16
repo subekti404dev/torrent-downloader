@@ -12,7 +12,7 @@ WORKDIR /app
 COPY scripts/* /usr/bin/
 COPY --from=builder /app/main /usr/bin/torrent
 RUN apk add --no-cache transmission-cli mosquitto-clients \
-    openssh tree sshpass rsync zip &&\
+    openssh tree sshpass rsync zip curl &&\
     mkdir /data && mkdir -p /root/.ssh &&\
     ssh-keygen -b 2048 -t rsa -f /tmp/sshkey -q -N "" &&\
     ssh-keyscan -H captain-nemo.xyz >> ~/.ssh/known_hosts &&\
