@@ -2,6 +2,7 @@ require("dotenv").config();
 const downloadFunc = require('./src/download')
 const getConfigFunc = require('./src/getconfig')
 const uploadFunc = require('./src/upload')
+const transferFunc = require('./src/transfer')
 
 const main = async () => {
   try {
@@ -16,6 +17,9 @@ const main = async () => {
     if (action === 'upload') {
         await uploadFunc(args[0])
     }
+    if (action === 'transfer') {
+      await transferFunc(args[0])
+  }
   } catch (error) {
     console.log(error?.response?.data || error?.message);
   }
