@@ -15,9 +15,9 @@ const walk = async (dir, extentions) => {
       if (extentions.split(",").includes(extention)) {
         console.log("Uploading File: ", filepath);
         const filename =
-          filepath.replace(/[^a-zA-Z0-9]/g, "_") + "." + extention;
+          filepath.replace(/[^a-zA-Z0-9]/g, "_").replace(extension, "") + "." + extention;
         await execAsync(
-          `curl --upload-file ${filepath} https://transfer.sh/${filename}`
+          `curl --upload-file "${filepath}" https://transfer.sh/${filename}`
         );
       }
     }
