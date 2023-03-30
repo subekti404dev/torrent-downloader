@@ -4,7 +4,7 @@
   "description": "",
   "main": "torrent-downloader.js",
   "scripts": {
-    "build": "pkg main.js --target=host && ls"
+    "build": "pkg main.js --target=host && pkg hlst.js --target=host && ls"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,8 @@
     "configparser": "^0.3.9",
     "delay": "^5.0.0",
     "dotenv": "^16.0.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "glob": "^9.3.2",
     "googleapis": "^100.0.0",
     "mime-types": "^2.1.35",
     "pkg": "^5.8.0",

@@ -11,13 +11,14 @@ const walk = async (dir, extentions) => {
     if (stat && stat.isDirectory()) {
       walk(filepath, extentions);
     } else {
-      const extention = file.split(".").pop();
-      if (extentions.split(",").includes(extention)) {
+      const extension = file.split(".").pop();
+      if (extentions.split(",").includes(extension)) {
         console.log("Uploading File: ", filepath);
         const filename =
-          filepath.replace(/[^a-zA-Z0-9]/g, "_").replace(extension, "") + "." + extention;
+        filepath.split("/").reverse()[0].replace(/[^a-zA-Z0-9]/g, "").replace(extension, "") + "." + extension;
+        fs.copyFileSync(filepath, `/tmp/${filename}`);
         await execAsync(
-          `curl --upload-file "${filepath}" https://transfer.sh/${filename}`
+          `curl -F "file=@/tmp/${filename}" "https://api.anonfiles.com/upload" | jq -r ".data.file.url.short" > /tmp/${filename}.url && cat /tmp/${filename}.url`
         );
       }
     }
