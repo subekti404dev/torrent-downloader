@@ -3,12 +3,6 @@ const path = require("path");
 const fs = require("fs");
 const { findVideos } = require("./find-video");
 
-const result = {
-  360: 0,
-  480: 0,
-  720: 0,
-  1080: 0,
-};
 let last_progress = 0;
 
 const exec = require("child_process").exec;
@@ -62,9 +56,8 @@ const transcode = (filePath, size = 1080) => {
       .on("progress", (progress) => {
         const time = parseInt(progress.timemark.replace(/:/g, ""));
         const percent = (time / totalTime) * 100;
-        result[size] = percent;
 
-        let total = (Object.values(result).reduce((tmp, v) => tmp + v, 0) / 4).toFixed(2);
+        let total = percent.toFixed(1);
         if (total > last_progress) {
           console.log(`[ progress ]: ${total}%`);
         }
@@ -101,6 +94,7 @@ const generateMaster = async (filePath) => {
     1080/index.m3u8?key=pppp
   `
     .split("\n")
+    .filter((x) => x)
     .map((x) => x.trim())
     .join("\n");
 
@@ -117,13 +111,14 @@ const main = async () => {
 
     const videoPath = (await findVideos("/data"))?.[0];
     console.log(videoPath);
-    const opt = process.argv[2];
+    const resolution = process.argv[2] || 1080;
+    const opt = process.argv[3];
     if (!videoPath) {
       throw new Error("video path is required");
     }
     console.log(`Generate HLS for: '${videoPath}'`);
     const promises = [generateMaster(videoPath)];
-    const resolutions = [360, 480, 720, 1080];
+    const resolutions = [resolution];
     for (const r of resolutions) {
       promises.push(transcode(videoPath, r));
     }
